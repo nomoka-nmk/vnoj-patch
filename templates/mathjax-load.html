@@ -1,0 +1,11 @@
+<script type="text/javascript" src="{{ static('mathjax_config.js') }}"></script>
+<script type="text/javascript" src="{{ static('vnoj/mathjax/3.2.0/es5/tex-chtml.min.js') }}"></script>
+<script type="text/javascript">
+    MathJax.startup.promise.then(() => {
+        MathJax.typesetPromise().then(() => {
+            document.querySelectorAll('.tex-image').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('.tex-text').forEach(el => el.style.display = 'block');
+            document.body.classList.add('math-loaded');
+        }).catch(console.error);
+    });
+</script>
