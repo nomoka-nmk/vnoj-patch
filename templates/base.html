@@ -27,9 +27,6 @@
     <link rel="manifest" href="/manifest.json">
     <meta name="msapplication-TileColor" content="#231F20">
     <meta name="msapplication-TileImage" content="/mstile-144x144.png">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
-  
     {# Chrome 39 for Android colour #}
     <meta name="theme-color" content="#231F20">
     {% if og_image %}
@@ -378,28 +375,36 @@
         </span>
     </footer>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
-    <script>
-    $(document).ready(function() {
-      $('img').not('#navigation * img').click(function() {
-          $.fancybox.open({
-              src: this.src,
-              type: 'image',
-              opts: {
-                  buttons: [
-                      "zoom",
-                      "share",
-                      "slideShow", 
-                      "fullScreen",
-                      "download",
-                      "thumbs",
-                      "close"
-                  ],
-                  loop: true
-              }
-          });
-      });
+<script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.6/viewer.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.6/viewer.min.css">
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const images = document.querySelectorAll('img:not(#navigation img, #navigation * img)');
+    
+    images.forEach(img => {
+        img.style.cursor = 'zoom-in';
     });
-    </script>
+
+    const viewer = new Viewer(document.body, {
+        filter: function(img) {
+            return !img.closest('#navigation');
+        },
+        toolbar: {
+            zoomIn: true,
+            zoomOut: true,
+            oneToOne: true,
+            reset: true,
+            prev: true,
+            play: true,
+            next: true,
+            rotateLeft: true,
+            rotateRight: true,
+            flipHorizontal: true,
+            flipVertical: true,
+        }
+    });
+});
+</script>
 </body>
 </html>
